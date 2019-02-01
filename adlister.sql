@@ -36,12 +36,23 @@ join categories on ads_categories.category1 = categories.id
 where ads.id = '1';
 
 
-select ads.title
+select title
 from ads
-join ads_categories on ads.id = ads_categories.id
-where ads_categories.category1 = '1';
+where id in(
+  select id
+  from ads_categories
+  where category1 = '1'
+  );
 
 select ads.title
 from ads
 join users on ads.user = users.id
 where users.id = '3';
+-- Top and bottom are doing the same thing but the top one is using joins and bottom is using sub-queries
+select title
+from ads
+where user in (
+  select id
+  from users
+  where id = '3'
+  );
